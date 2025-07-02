@@ -85,7 +85,7 @@ class ControllerTest {
   @ParameterizedTest
   @ValueSource(ints = [0, -1])
   fun `validate positive ttlSeconds`(ttlSeconds: Int) {
-    val request = CreateSecretRequest("", ttlSeconds)
+    val request = CreateSecretRequest(randomId(), ttlSeconds)
     val errorResponse = restTemplate.postForEntity(url("/secrets"), request, ValidationErrorResponse::class.java)
     assertEquals(HttpStatus.BAD_REQUEST, errorResponse.statusCode)
     assertEquals(ErrorReason.INVALID_INPUT, errorResponse.body!!.reason)
